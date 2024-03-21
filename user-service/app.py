@@ -26,4 +26,4 @@ def create_user():
     return jsonify({'message': f'User created with ID: {result.inserted_id}'})
 
 if __name__ == '__main__':
-    app.run(port=3001)
+    app.run(host="0.0.0.0", debug=True, port=3001)
