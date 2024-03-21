@@ -3,7 +3,7 @@ name: CI branch
 on:
   push:
     branches:
-      - '[0-9].[0-9].[0-9]' # Déclenche uniquement lorsque le code est poussé vers des branches commençant par 'v'
+      - '[0-9].[0-9].[0-9]{1,2}'
 
 jobs:
   build-and-publish-front:
