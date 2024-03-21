@@ -3,7 +3,7 @@ name: CI branch
 on:
   push:
     branches:
-      - 'v*' # Déclenche uniquement lorsque le code est poussé vers des branches commençant par 'v'
+      - '[0-9].[0-9].[0-9]' # Déclenche uniquement lorsque le code est poussé vers des branches commençant par 'v'
 
 jobs:
   build-and-publish-front:
@@ -30,8 +30,8 @@ jobs:
           context: ./front-end-react
           file: Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}:${VERSION#refs/tags/} .
-          labels: ${{ steps.meta.outputs.labels }}:${VERSION#refs/tags/} .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
  
   build-and-publish-order-service:
     runs-on: ubuntu-latest
@@ -57,8 +57,8 @@ jobs:
           context: ./order-service
           file: Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}:${VERSION#refs/tags/} .
-          labels: ${{ steps.meta.outputs.labels }}:${VERSION#refs/tags/} .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
   build-and-publish-user-service:
     runs-on: ubuntu-latest
@@ -84,8 +84,8 @@ jobs:
           context: ./user-service
           file: Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}:${VERSION#refs/tags/} .
-          labels: ${{ steps.meta.outputs.labels }}:${VERSION#refs/tags/} .  
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }} 
 
   build-and-publish-mongo-service:
     runs-on: ubuntu-latest
@@ -111,5 +111,5 @@ jobs:
           context: ./
           file: Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}:${VERSION#refs/tags/} .
-          labels: ${{ steps.meta.outputs.labels }}:${VERSION#refs/tags/} .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
