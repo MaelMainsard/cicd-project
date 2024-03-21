@@ -125,19 +125,14 @@ jobs:
           
       - name: Update YAML version
         run: |
-          sed -i 's/cicd-project-frontend:latest/cicd-project-frontend:0.0.2/' ./front-end-react/frontend-deployment.yaml  # Remplacez la version par celle que vous souhaitez utiliser
+          sed -i 's/cicd-project-frontend:latest/cicd-project-frontend:0.0.2/' ./deployment/frontend-deployment.yaml  # Remplacez la version par celle que vous souhaitez utiliser
             
-      - name: Commit changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add ./front-end-react/frontend-deployment.yaml
-          git commit -m "Update version in YAML file"
-            
-      - name: Push changes
+      - name: Commit and push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: dev
-    
+          repository: MaelMainsard/microapp-deploy
+          branch: main
+          directory: ./deployment/
+          message: "Update YAML version"
       
