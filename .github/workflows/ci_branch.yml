@@ -135,7 +135,7 @@ jobs:
           git commit -m "Update version in YAML file"
             
       - name: Switch to branch
-        run: git checkout -b dev
+        run: git checkout dev
       
       - name: Push changes
         uses: ad-m/github-push-action@master
