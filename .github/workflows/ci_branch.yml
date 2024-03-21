@@ -32,7 +32,11 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
- 
+      
+      - name: Create deployment files
+        run: |
+          sed -i 's|image: maelmainsard/front-end-react:.*$|image: maelmainsard/${{ steps.meta.outputs.tags }}|' ./front-end-react/deployment.yaml
+    
   build-and-publish-order-service:
     runs-on: ubuntu-latest
     steps:
