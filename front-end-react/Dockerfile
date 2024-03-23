@@ -12,5 +12,5 @@ FROM nginx:1.19.0
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 COPY --from=builder /usr/src/app/build .
-EXPOSE 80
+EXPOSE 3000
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
