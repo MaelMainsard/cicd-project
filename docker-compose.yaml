@@ -17,7 +17,7 @@ services:
       context: ./front-end-react
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - 3000:80
     networks:
       - cicd-net
     depends_on:
