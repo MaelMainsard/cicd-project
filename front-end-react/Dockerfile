@@ -1,20 +1,16 @@
-
+#Stage 1
 FROM node:18-alpine as builder
-
 WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install
-
+COPY package*.json .
+COPY yarn*.lock .
+RUN yarn install
 COPY . .
+RUN yarn build
 
-RUN npm run build 
-
-FROM nginx:stable-alpine
-
-COPY --from=build-stage /app/build /usr/share/nginx/html
-
+#Stage 2
+FROM nginx:1.19.0
+WORKDIR /usr/share/nginx/html
+RUN rm -rf ./*
+COPY --from=builder /usr/src/app/build .
 EXPOSE 3000
-
 CMD ["nginx", "-g", "daemon off;"]
