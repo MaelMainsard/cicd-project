@@ -13,7 +13,7 @@ RUN npm install
 # Copy the entire application code to the container
 COPY . .
 
-# Build the React app for production
+# Build the React app for productiondqzdqz
 RUN npm run build
 
 # Use Nginx as the production server
