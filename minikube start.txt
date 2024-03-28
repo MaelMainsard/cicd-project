@@ -9,3 +9,7 @@ Si connection refuse : kubectl get pod -n argocd -w
 Démarré argo : kubectl port-forward -n argocd svc/argocd-server 8080:443
 
 kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
+
+kubectl apply -f order-service-app.yaml
+
+kubectl port-forward service/frontend 3002:3002 -n microapp-deploy
