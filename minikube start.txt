@@ -10,6 +10,16 @@ Démarré argo : kubectl port-forward -n argocd svc/argocd-server 8080:443
 
 kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
 
-kubectl apply -f order-service-app.yaml
+kubectl apply -f app.yaml
 
-kubectl port-forward service/frontend 3002:3002 -n microapp-deploy
+kubectl port-forward service/frontend 3000:3000 -n microapp-deploy 
+kubectl port-forward service/order-service 3002:3002 -n microapp-deploy 
+kubectl port-forward service/user-service 3001:3001 -n microapp-deploy 
+kubectl port-forward service/mongo-service 27017:27017 -n microapp-deploy
+
+Pour avoir accès au pod via console : kubectl exec -it -n microapp-deploy frontend-5749c7bf9f-66jlh /bin/sh
+
+Pour mettre à dispo le front : minikube service frontend -n microapp-deploy
+
+
+
