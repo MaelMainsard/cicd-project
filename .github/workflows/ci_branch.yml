@@ -72,12 +72,9 @@ jobs:
           git config --global user.email "mainsardm@gmail.com"
           git config --global user.name "MaelMainsard"
           git commit -m "Mis à jour du fichier de deployment ${{ matrix.service.deployment }}"
-      
-      - name: Check branch
-        run: git branch -a
 
       - name: Push du fichier vers l'autre repo
-        run: git push -u microapp-deploy main --force
+        run: git push microapp-deploy ${{ github.ref_name }}:main --force
       
 
       
