@@ -57,26 +57,5 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
-      - name: Modify deployment file
-        run: |
-          sed -i 's|image: ${{ matrix.service.image }}:latest|image: ${{ matrix.service.image }}:${{ github.ref_name }}|g' ./deployment/${{ matrix.service.deployment }}
-
-      - name: Ajouter remote pour le dépôt distant
-        run: git remote add microapp-deploy https://github.com/MaelMainsard/microapp-deploy
-
-      - name: Ajouter du fichier à la zone de staging
-        run : git add ./deployment/${{ matrix.service.deployment }}
-
-      - name: Création du commit
-        run: |
-          git config --global user.email "mainsardm@gmail.com"
-          git config --global user.name "MaelMainsard"
-          git commit -m "Mis à jour du fichier de deployment ${{ matrix.service.deployment }}"
-
-      - name: Push du fichier vers l'autre repo
-        run: git push microapp-deploy ${{ github.ref_name }}:main --force
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-      
 
       
