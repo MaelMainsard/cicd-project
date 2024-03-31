@@ -76,7 +76,7 @@ jobs:
       - name: Push du fichier vers l'autre repo
         run: git push microapp-deploy ${{ github.ref_name }}:main --force
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
       
 
       
