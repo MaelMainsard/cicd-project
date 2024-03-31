@@ -65,7 +65,10 @@ jobs:
         run : git add ./deployment/${{ matrix.service.deployment }}
 
       - name: Création du commit
-        run: git commit -m "Mis à jour du fichier de deployment ${{ matrix.service.deployment }}"
+        run: |
+          git config --global user.email "mainsardm@gmail.com"
+          git config --global user.name "MaelMainsard"
+          git commit -m "Mis à jour du fichier de deployment ${{ matrix.service.deployment }}"
 
       - name: Ajouter remote pour le dépôt distant
         run: git remote add microapp-deploy https://github.com/MaelMainsard/microapp-deploy
