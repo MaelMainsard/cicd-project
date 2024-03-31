@@ -59,10 +59,10 @@ jobs:
       
       - name: Modify deployment file
         run: |
-          sed -i 's|image: ${{ matrix.service.image }}:latest|image: ${{ matrix.service.image }}:${{ github.ref_name }}|g' ../ ../deployment/${{ matrix.service.deployment }}
+          sed -i 's|image: ${{ matrix.service.image }}:latest|image: ${{ matrix.service.image }}:${{ github.ref_name }}|g' ./deployment/${{ matrix.service.deployment }}
 
       - name: Ajouter du fichier à la zone de staging
-        run : git add ../ ../deployment/${{ matrix.service.deployment }}
+        run : git add ./deployment/${{ matrix.service.deployment }}
 
       - name: Création du commit
         run: git commit -m "Mis à jour du fichier de deployment ${{ matrix.service.deployment }}"
