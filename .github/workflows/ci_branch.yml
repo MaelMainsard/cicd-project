@@ -15,18 +15,22 @@ jobs:
             context: ./front-end-react
             dockerfile: ./front-end-react/Dockerfile
             image: maelmainsard/cicd-project-frontend
+            deployment: frontend-deployment.yaml
           - name: order
             context: ./order-service
             dockerfile: ./order-service/Dockerfile
             image: maelmainsard/cicd-project-order-service
+            deployment: order-service-deployment.yaml
           - name: user
             context: ./user-service
             dockerfile: ./user-service/Dockerfile
             image: maelmainsard/cicd-project-user-service
+            deployment: user-service-deployment.yaml
           - name: mongo
             context: ./
             dockerfile: Dockerfile
             image: maelmainsard/cicd-project-mongo-service
+            deployment: mongo-service-deployment.yaml
 
     steps:
       - name: Checkout du repository
@@ -52,3 +56,22 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      
+      - name: Modify deployment file
+        run: |
+          sed -i 's|image: ${{ matrix.service.image }}:latest|image: ${{ matrix.service.image }}:${{ github.ref_name }}|g' ./deployment/${{ matrix.service.deployment }}
+
+      - name: Ajouter du fichier à la zone de staging
+        run : git add ./deployment/${{ matrix.service.deployment }}
+
+      - name: Création du commit
+        run: git commit -m "Mis à jour du fichier de deployment ${{ matrix.service.deployment }}"
+
+      - name: Ajouter remote pour le dépôt distant
+        run: git remote add microapp-deploy https://github.com/MaelMainsard/microapp-deploy
+
+      - name: Push du fichier vers l'autre repo
+        run: git push microapp-deploy main
+      
+
+      
