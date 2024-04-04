@@ -8,7 +8,7 @@ const App = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:3001/user');
+      const response = await fetch('http://user-service:3001/user');
       const data = await response.json();
       setUserData(data);
     } catch (error) {
