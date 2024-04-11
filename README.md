@@ -137,8 +137,7 @@ docker compose up -d
 ```
 Maintenant rendez vous via un navigateur au http://localhost:3000. Vous devriez voir ça : 
 
-![Image 1](  
-https://lh3.google.com/u/0/d/1SJWMoMH_J1mY9iGvftA6Kj-8jxx8vu58=w1868-h893-iv1)
+![Image 1](Img1.png)
 
 Testez si les services communiquent bien entre eux en cliquant sur GetOrders ou en renseignant un nom et prénom.
 
@@ -166,7 +165,7 @@ Les images docker qui vont êtres générées par la suite doivent être poussé
 
 Vous devriez avoir quelque chose de similaire à ceci :
 
-![image4](https://lh3.google.com/u/0/d/1wP7n74d47XzEnDdeyapOAphNA3BnAs7c=w1868-h893-iv1)
+![image4](Img4.png)
 
 **4. Mise en place du pipeline CI :**
 
@@ -228,11 +227,11 @@ jobs:
 
 Une fois un push réalisé sur prod ou lors de la création d'une nouvelle branche de versionning, rendez vous dans github action et veillez à ce que vos jobs ne soient pas en erreur : 
 
-![image2](https://lh3.google.com/u/0/d/1wqdqql1KTHNgap1v3u212XbP72C2CJFU=w1868-h893-iv1)
+![image2](Img2.png)
 
 Une fois cela fait, nous allons vérifié que les images ont bien été push dans les repository privées. Pour cela connectez vous a votre compte docker hub et allez dans chaque repository pour vérifier que l'image en question à bien été publié : 
 
-![image3](https://lh3.google.com/u/0/d/179xC00GJHwCT5Lfcdgdq3tMtE5107ZxV=w1868-h893-iv1)
+![image3](Img3.png)
 
 > On voit ci-dessus que l'image 0.0.0 à bien été téléversé vers le repo.
 
@@ -543,18 +542,17 @@ minikube tunnel
 
 Rendez vous à **http://localhost:8080**
 
-![image5](https://lh3.google.com/u/0/d/1CSm1jpx9iHp5ZH7TYFBBNLzw806Zm4oi=w1868-h893-iv1)
+![image5](Img5.png)
 Dans **username** rentrez "Admin" et dans password le mot de passe précédemment décodé. Puis cliquez sur sign-in.
 
 Rendez vous à l'intérieur du stack et cliquez en sur l'icone en haut à droite :
 
-![image6](https://lh3.google.com/u/0/d/1Xv7nbuCOTy7nFDiN_qPA6QvTd7x5ymdi=w1868-h893-iv1)
+![image6](Img6.png)
 
 Vérifié que tout les pods et services sont opérationnels.
 
 Maintenant rendez vous au http://localhost:3000 :
 
-![Image 1](  
-https://lh3.google.com/u/0/d/1SJWMoMH_J1mY9iGvftA6Kj-8jxx8vu58=w1868-h893-iv1)
+![Image 1](Img1.png)
 
 Et voila vous avez deployé la stack sur argocd & k8s.
