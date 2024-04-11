@@ -2,7 +2,7 @@
 
 ## Contexte
 
-Vous travaillez sur le déploiement d'une application composée de microservices dans un environnement Kubernetes. L'application est constituée de quatre services : le frontend React, le service de gestion des ordres, le service utilisateur interagissant avec une base de données MongoDB, et enfin, une instance MongoDB.
+Vous travaillez sur le déploiement d'une application composée de microservices dans un environnement Kubernetes. L'application est constituée de quatre services : le frontend React, le service de gestion des commandes (order-service), le service utilisateur interagissant avec une base de données MongoDB, et enfin, une instance MongoDB.
 
 ## Étapes du Projet :
 
@@ -25,7 +25,7 @@ Dans **user-service/app.py** remplacez :
 ```py
 'mongodb://localhost:27017/' => 'mongodb://mongo-service:27017/'
 ```
-Maintenant, nous allons tester en local si notre stack fonctionne normalement. Pour cela créez 4 fichiers **Dockerfile** aux emplacements ci dessous : 
+Maintenant, nous allons tester en local si notre stack fonctionne normalement. Pour cela créez 4 fichiers **Dockerfile** aux emplacements ci-dessous : 
 
 *Emplacement : front-end-react*
 ```docker
@@ -72,7 +72,7 @@ CMD [ "python3", "app.py" ]
 FROM mongo
 EXPOSE 27017
 ```
-Maintenant que les Dockerfiles sont crées, nous allons créer un fichier docker-compose pour tester rapidement l'application en local. 
+Maintenant que les Dockerfiles sont créés, nous allons créer un fichier docker-compose pour tester rapidement l'application en local. 
 
 A la racine du projet, créez un nouveau fichier **docker-compose.yaml**
 ```docker
@@ -131,11 +131,11 @@ networks:
 volumes:
   dbdata:
 ```
-Maintenant, ouvrez un terminal , et exécutez cette commande : 
+Maintenant, ouvrez un terminal et exécutez cette commande : 
 ```bash
 docker compose up -d
 ```
-Maintenant rendez vous via un navigateur au http://localhost:3000. Vous devriez voir ça : 
+Maintenant rendez-vous via un navigateur au http://localhost:3000. Vous devriez voir ça : 
 
 ![Image 1](Img1.png)
 
@@ -143,7 +143,7 @@ Testez si les services communiquent bien entre eux en cliquant sur GetOrders ou 
 
 **2. Modification du FrontEnd pour le deployement**
 
-Avant de déployer sur k8s, il faut que l'on change quelque lignes du frontend :
+Avant de déployer sur k8s, il faut que l'on change quelques lignes du frontend :
 
 Dans  **front-end-react/src/App.js** remplacez :
 ```js
@@ -157,7 +157,7 @@ Vous comprendrez par la suite pourquoi.
 
 **3. Création des repository docker hub:**
 
-Les images docker qui vont êtres générées par la suite doivent être poussées vers des repository docker hub afin d'être récupérées par k8s & argocd par la suite. Pour cela créez un repository pour chaque service :
+Les images docker qui vont être générées par la suite doivent être poussées vers des repository dockerhub afin d'être récupérées par k8s & argocd par la suite. Pour cela créez un repository pour chaque services :
 * cicd-project-frontend
 * cicd-project-order-service
 * cicd-project-user-service
@@ -169,7 +169,7 @@ Vous devriez avoir quelque chose de similaire à ceci :
 
 **4. Mise en place du pipeline CI :**
 
-À la racine du projet créez un nouveau dossier **.github** puis, dans ce dossier , créez un nouveau dossier **workflows**. Rendez vous dans ce dossier et créez un nouveau fichier **ci-pipeline.yml** puis, copier/coller ce code :
+À la racine du projet créez un nouveau dossier **.github** puis, dans ce dossier , créez un nouveau dossier **workflows**. Rendez-vous dans ce dossier et créez un nouveau fichier **ci-pipeline.yml** puis, copier/coller ce code :
 ```yml
 name: CI pour versionning
 
@@ -225,15 +225,15 @@ jobs:
 ```
 > Pour info ce code s'exécutera lorsqu'on réalisera un push sur la branche prod et lorsque qu'une branche de version sera crée ( Ex : 0.0.2 )
 
-Une fois un push réalisé sur prod ou lors de la création d'une nouvelle branche de versionning, rendez vous dans github action et veillez à ce que vos jobs ne soient pas en erreur : 
+Une fois un push réalisé sur prod ou lors de la création d'une nouvelle branche de versionning, rendez-vous dans github action et veillez à ce que vos jobs ne soient pas en erreur : 
 
 ![image2](Img2.png)
 
-Une fois cela fait, nous allons vérifié que les images ont bien été push dans les repository privées. Pour cela connectez vous a votre compte docker hub et allez dans chaque repository pour vérifier que l'image en question à bien été publié : 
+Une fois cela fait, nous allons vérifier que les images ont bien été push dans les repository privés. Pour cela connectez vous à votre compte dockerhub et allez dans chaque repository pour vérifier que l'image en question a bien été publiée : 
 
 ![image3](Img3.png)
 
-> On voit ci-dessus que l'image 0.0.0 à bien été téléversé vers le repo.
+> On voit ci-dessus que l'image 0.0.0 à bien été téléversée vers le repo.
 
 **5. Création du repo de deployement :**
 
@@ -263,7 +263,7 @@ spec:
 ```
 Créez ensuite un dossier **deploy** à la racine du projet et créez tous ces fichiers :
 
-> Note : Dans les fichiers de types déploiements, n'oubliez pas de changer la version des images dockers par la version que vous souhaitez.
+> Note : Dans les fichiers de types déploiements, n'oubliez pas de changer la version des images docker par la version que vous souhaitez.
 
 *frontend-deployment.yaml*
 ```yml
@@ -494,13 +494,13 @@ spec:
 ```
 **6. Modfier votre fichier etc/hosts**
 
-Ajoutez cette ligne a votre fichier : 
+Ajoutez cette ligne à votre fichier : 
 
 127.0.0.1 api.microapp-deploy.com
 
 **7. Deployment sur argocd :**
 
-A la racine du projet, ouvrez un terminal et exécutez cette commande:
+A la racine du projet, ouvrez un terminal et exécutez cette commande :
 
 ```bash
 minikube start
@@ -521,7 +521,7 @@ Maintenant nous allons ajouter le contrôleur ingress-nginx pour notre ingress. 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/cloud/deploy.yaml
 ```
-Maintenant, nous avons le namespace argocd, le namespace ingress-nginx. Nous allons pouvoir créer le namespace pour notre app . Exécutez cette commande : 
+Maintenant, nous avons le namespace argocd, le namespace ingress-nginx. Nous allons pouvoir créer le namespace pour notre app. Exécutez cette commande : 
 ```bash
 kubectl apply -f app.yaml
 ```
@@ -529,7 +529,7 @@ puis
 ```bash
 kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
 ```
-Récupérez le champ base64 password décodez le et mettez le de coté pour l'instant. Ensuite exécutez cette commande :
+Récupérez le champ base64 password décodez-le et mettez-le de coté pour l'instant. Ensuite exécutez cette commande :
 ```bash
 kubectl port-forward -n argocd svc/argocd-server 8080:443
 ```
@@ -549,10 +549,10 @@ Rendez vous à l'intérieur du stack et cliquez en sur l'icone en haut à droite
 
 ![image6](Img6.png)
 
-Vérifié que tout les pods et services sont opérationnels.
+Vérifiez que tout les pods et services sont opérationnels.
 
-Maintenant rendez vous au http://localhost:3000 :
+Maintenant rendez-vous au http://localhost:3000 :
 
 ![Image 1](Img1.png)
 
-Et voila vous avez deployé la stack sur argocd & k8s.
+Et voila ! Vous avez deployé la stack sur argocd & k8s.
