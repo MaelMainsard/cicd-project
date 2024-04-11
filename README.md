@@ -547,7 +547,7 @@ Dans **username** rentrez "Admin" et dans password le mot de passe précédemmen
 
 Rendez vous à l'intérieur du stack et cliquez en sur l'icone en haut à droite :
 
-![image6](Img6 (2).png)
+![image6](Img6.png)
 
 Vérifiez que tout les pods et services sont opérationnels.
 
